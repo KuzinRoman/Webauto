@@ -1,0 +1,32 @@
+﻿@model WebStore.ViewModels.AutoViewModel
+
+<table class="table table-bordered">
+    <tr>
+        <td>Id</td>
+        <td>@Model.Id</td>
+    </tr>
+    <tr>
+        <td>Регистрационный номер</td>
+        <td>@Model.Regnomer</td>
+    </tr>
+    <tr>
+        <td>Модель машины</td>
+        <td>@Model.Autoname</td>
+    </tr>
+    <tr>
+        <td>Возраст</td>
+        <td>@Model.Age</td>
+    </tr>
+    <tr>
+        <td>Была в аварии</td>
+        <td>@Model.Crash</td>
+    </tr>
+    <tr>
+        <td>Количество аварий, если были</td>
+        <td>@Model.Numbercrash</td>
+    </tr>
+    <tr>
+        @Html.ActionLink("Назад к списку", "Autos", "Home")
+    </tr>
+    
+</table>

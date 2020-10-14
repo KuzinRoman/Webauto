@@ -1,0 +1,15 @@
+﻿@model IEnumerable<WebStore.ViewModels.AutoViewModel>
+
+<table class="table">
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Id</td>
+            <td>@item.Regnomer</td>
+            <td>@item.Autoname</td>
+            <td>
+                @Html.ActionLink("Детали", "AutosDetails", new { id = item.Id })
+            </td>
+        </tr>
+    }
+</table>

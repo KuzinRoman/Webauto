@@ -9,25 +9,26 @@ namespace WebStore.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly List<EmployeeViewModel> _employees = new List<EmployeeViewModel>
+        private readonly List<AutoViewModel> _auto = new List<AutoViewModel>
         {
-            new EmployeeViewModel
+            new AutoViewModel
             {
                 Id = 1,
-                FirstName = "Иван",
-                SurName = "Иванов",
-                Patronymic = "Иванович",
-                Age = 22,
-                Position = "Начальник"
+                Regnomer = "b123tn",
+                Autoname = "Shkoda Octavia",
+                Crash = false,
+                Age = 5,
+                Numbercrash = 0
             },
-            new EmployeeViewModel
+           
+            new AutoViewModel
             {
                 Id = 2,
-                FirstName = "Владислав",
-                SurName = "Петров",
-                Patronymic = "Иванович",
-                Age = 35,
-                Position = "Программист"
+                Regnomer = "c674te",
+                Autoname = "Hyundai Tucson",
+                Crash = true,
+                Age = 4,
+                Numbercrash = 3
             }
         };
 
@@ -37,22 +38,22 @@ namespace WebStore.Controllers
             return View();
         }
 
-        // /home/Employees
-        public IActionResult Employees()
+        // /home/Autos
+        public IActionResult Autos()
         {
-            return View(_employees);
+            return View(_auto);
         }
 
-        // /home/EmployeeDetails/1
-        public IActionResult EmployeeDetails(int id)
+        // /home/AutoDetails/1
+        public IActionResult AutosDetails(int id)
         {
-            var employeeViewModel = _employees.FirstOrDefault(x => x.Id == id);
+            var autoViewModel = _auto.FirstOrDefault(x => x.Id == id);
 
             //Если такого не существует
-            if (employeeViewModel == null)
+            if (autoViewModel == null)
                 return NotFound(); // возвращаем результат 404 Not Found
 
-            return View(employeeViewModel);
+            return View(autoViewModel);
         }
     }
 }
