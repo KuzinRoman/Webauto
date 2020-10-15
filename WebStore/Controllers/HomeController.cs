@@ -3,57 +3,56 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using WebStore.ViewModels;
 
 namespace WebStore.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly List<AutoViewModel> _auto = new List<AutoViewModel>
-        {
-            new AutoViewModel
-            {
-                Id = 1,
-                Regnomer = "b123tn",
-                Autoname = "Shkoda Octavia",
-                Crash = false,
-                Age = 5,
-                Numbercrash = 0
-            },
-           
-            new AutoViewModel
-            {
-                Id = 2,
-                Regnomer = "c674te",
-                Autoname = "Hyundai Tucson",
-                Crash = true,
-                Age = 4,
-                Numbercrash = 3
-            }
-        };
-
-        // /home/index
         public IActionResult Index()
         {
             return View();
         }
 
-        // /home/Autos
-        public IActionResult Autos()
+        public IActionResult Blog()
         {
-            return View(_auto);
+            return View();
         }
 
-        // /home/AutoDetails/1
-        public IActionResult AutosDetails(int id)
+        public IActionResult blogsingle()
         {
-            var autoViewModel = _auto.FirstOrDefault(x => x.Id == id);
+            return View();
+        }
 
-            //Если такого не существует
-            if (autoViewModel == null)
-                return NotFound(); // возвращаем результат 404 Not Found
+        public IActionResult error()
+        {
+            return View();
+        }
 
-            return View(autoViewModel);
+        public IActionResult cart()
+        {
+            return View();
+        }
+        public IActionResult checkout()
+        {
+            return View();
+        }
+        public IActionResult contactus()
+        {
+            return View();
+        }
+        public IActionResult login()
+        {
+            return View();
+        }
+
+        public IActionResult productdetails()
+        {
+            return View();
+        }
+
+        public IActionResult shop()
+        {
+            return View();
         }
     }
 }

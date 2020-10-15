@@ -28,12 +28,14 @@ namespace WebStore
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env) //
         {      
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseStaticFiles(); // Данный метод нужен для загрузки статических файлов.
 
             var hello = _configuration["CustomHelloWorld"];
             //var logLevel = _configuration["Logging:LogLevel:Default"];
@@ -45,12 +47,12 @@ namespace WebStore
                 //endpoints.MapDefaultControllerRoute(); 
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                     pattern: "{controller=Auto}/{action=Index}/{id?}");
 
-                endpoints.MapGet("/", async context =>
-                {
-                    await context.Response.WriteAsync(hello);
-                });
+                /*  endpoints.MapGet("/", async context =>
+                  {
+                      await context.Response.WriteAsync(hello);
+                  });*/
             });
         }
     }
