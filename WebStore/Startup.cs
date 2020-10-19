@@ -8,6 +8,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using WebStore.Infrastructure;
+using WebStore.Infrastructure.Interface;
+using WebStore.Infrastructure.Services;
 
 namespace WebStore
 {
@@ -25,20 +28,37 @@ namespace WebStore
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+
+            services.AddMvc(options =>
+            {
+                options.Filters.Add(typeof(SimpleActionFilter)); // подключение по типу
+
+                // альтернативный вариант подключения
+                //options.Filters.Add(new SimpleActionFilter()); // подключение по объекту
+            });
+
+            services.AddSingleton<IAutoService, InMemoryAutoService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env) //
-        {      
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseStaticFiles(); // Данный метод нужен для загрузки статических файлов.
+            app.UseStaticFiles();
 
             var hello = _configuration["CustomHelloWorld"];
             //var logLevel = _configuration["Logging:LogLevel:Default"];
+
+            app.Map("/index", CustomIndexHandler);
+
+            UseMiddlewareSample(app);
+
+            app.UseMiddleware<TokenMiddleware>();
 
             app.UseRouting();
 
@@ -47,12 +67,43 @@ namespace WebStore
                 //endpoints.MapDefaultControllerRoute(); 
                 endpoints.MapControllerRoute(
                     name: "default",
-                     pattern: "{controller=Auto}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
 
-                /*  endpoints.MapGet("/", async context =>
-                  {
-                      await context.Response.WriteAsync(hello);
-                  });*/
+                //endpoints.MapGet("/", async context =>
+                //{
+                //    await context.Response.WriteAsync(hello);
+                //});
+            });
+
+            app.Run(async (context) =>
+            {
+                await context.Response.WriteAsync("Привет из конвейера обработки запроса (метод app.Run())");
+            });
+        }
+
+        private void UseMiddlewareSample(IApplicationBuilder app)
+        {
+            app.Use(async (context, next) =>
+            {
+                bool isError = false;
+                // ...
+                if (isError)
+                {
+                    await context.Response
+                        .WriteAsync("Error occured. You're in custom pipeline module...");
+                }
+                else
+                {
+                    await next.Invoke();
+                }
+            });
+        }
+
+        private void CustomIndexHandler(IApplicationBuilder app)
+        {
+            app.Run(async context =>
+            {
+                await context.Response.WriteAsync("Index custom handler...");
             });
         }
     }

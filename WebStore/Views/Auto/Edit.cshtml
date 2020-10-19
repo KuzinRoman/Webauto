@@ -1,0 +1,58 @@
+﻿@model WebStore.ViewModels.AutoViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<h4>AutoViewModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Id" class="control-label"></label>
+                <input asp-for="Id" class="form-control " readonly/>
+
+                <span asp-validation-for="Id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Regnomer" class="control-label"></label>
+                <input asp-for="Regnomer" class="form-control" />
+                <span asp-validation-for="Regnomer" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Autoname" class="control-label"></label>
+                <input asp-for="Autoname" class="form-control" />
+                <span asp-validation-for="Autoname" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Age" class="control-label"></label>
+                <input asp-for="Age" class="form-control" />
+                <span asp-validation-for="Age" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="Crash" /> @Html.DisplayNameFor(model => model.Crash)
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Numbercrash" class="control-label"></label>
+                <input asp-for="Numbercrash" class="form-control" />
+                <span asp-validation-for="Numbercrash" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Autos">Back to List</a>
+</div>
+

@@ -1,15 +1,17 @@
 ﻿@model IEnumerable<WebStore.ViewModels.AutoViewModel>
-
+    <a asp-action="Edit" class="btn btn-success">Добавить</a>
 <table class="table">
     @foreach (var item in Model)
     {
-        <tr>
-            <td>@item.Id</td>
-            <td>@item.Regnomer</td>
-            <td>@item.Autoname</td>
-            <td>
-                @Html.ActionLink("Детали", "AutosDetails", new { id = item.Id })
-            </td>
-        </tr>
+    <tr>
+        <td><a asp-action="Edit" asp-route-id="@item.Id"><i class="fa fa-edit"></i></a></td>
+        <td>@item.Id</td>
+        <td>@item.Regnomer</td>
+        <td>@item.Autoname</td>
+        <td>
+            @Html.ActionLink("Детали", "AutosDetails", new { id = item.Id })
+        </td>
+        <td><a asp-action="Delete" asp-route-id="@item.Id"><i class="cart_delete"></i></a></td>
+    </tr>
     }
 </table>
